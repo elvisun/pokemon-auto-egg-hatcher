@@ -25,8 +25,6 @@ lastLocation = ()
 
 
 
-homeLocation = {'lat':'43.01672019999999', 'lng': '-81.28793140000001'}
-
 def changeDestination():
 	global destination
 	destination = destination + 1
@@ -74,7 +72,7 @@ def getPokemonLocation(currentLocation):
 	if not init:
 		print('initializing:')
 		geolocator = Nominatim()
-		location = geolocator.geocode("26 Thirlmere Rd London On")
+		location = geolocator.geocode("ENTER YOUR ADDRESS HERE! be specific")
 		print('Current address: ',location.address)
 		playerLocation = (location.longitude, location.latitude)
 		print ('playerLocation: ', playerLocation)

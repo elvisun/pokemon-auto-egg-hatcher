@@ -1,11 +1,29 @@
-# Pokemon-Go-Controller
+# Overall flow
+1. you provide your current location to the app, which then calculate a path around you
+2. Based on the path it then generates gpx file constantly
+3. Create a blank project referencing the gpx and simulate on your playing device
+4. auto click the xcode buttons to constantly uploading the location
 
-![Alt text](Assets/result.gif?raw=true "result gif")
-![Alt text](Assets/xcode.gif?raw=true "xcode gif")  
+## Will I be banned?
+There are softbans(a few hours) for players that spoof locations. The system does this by calculating the speed you move. Say you teleport from NYC to Toronto, then you will be moving too fast and you will be banned.
 
-## iOS device as game controller
-![Alt text](Assets/controller.png?raw=true "controller")  
-Clone this xcode project and run on your iphone / ipad, this app actually perform a web server that tells your chosen location, your location will be wherever the poke ball is, so you may drag the map of press the buttons.
+Using this app you will be just "runing" around your house, so the system will not detect that you are location spoofing.
+
+Disclaimer: Use at your own risk.
+
+#Instruction
+
+First of all you need XCODE for this to work, you can explore other options for androids and use the same logic under '''eggrun.py'''
+
+This is a fork from https://github.com/kahopoon/Pokemon-Go-Controller , see the original project for more instructions.
+
+Clone/download this project. Change the location into your current address: 
+
+'''
+location = geolocator.geocode("ENTER YOUR ADDRESS HERE! be specific")
+'''
+
+Open xcode and start a blank project. You will have to find out 
 
 ```
 {"lng":"114.132530212402","lat":"22.3636264801025"}
