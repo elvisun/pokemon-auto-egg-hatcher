@@ -1,8 +1,12 @@
-# Overall flow
+# Overview
+## Overall Flow
 1. you provide your current location to the app, which then calculate a path around you
 2. Based on the path it then generates gpx file constantly
 3. Create a blank project referencing the gpx and simulate on your playing device
 4. auto click the xcode buttons to constantly uploading the location
+
+##What do I need?
+A mac and an iphone/ipad
 
 ## Will I be banned?
 There are softbans(a few hours) for players that spoof locations. The system does this by calculating the speed you move. Say you spoofed your location to NYC, then you disconnected and you will be back at your current loaction, then you will be moving too fast and you will be banned.
