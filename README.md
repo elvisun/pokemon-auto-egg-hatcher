@@ -5,118 +5,49 @@
 4. auto click the xcode buttons to constantly uploading the location
 
 ## Will I be banned?
-There are softbans(a few hours) for players that spoof locations. The system does this by calculating the speed you move. Say you teleport from NYC to Toronto, then you will be moving too fast and you will be banned.
+There are softbans(a few hours) for players that spoof locations. The system does this by calculating the speed you move. Say you spoofed your location to NYC, then you disconnected and you will be back at your current loaction, then you will be moving too fast and you will be banned.
 
 Using this app you will be just "runing" around your house, so the system will not detect that you are location spoofing.
 
-Disclaimer: Use at your own risk.
+##Disclaimer
+Use at your own risk.
 
 #Instruction
-
-First of all you need XCODE for this to work, you can explore other options for androids and use the same logic under '''eggrun.py'''
+First of all you need XCODE for this to work, you can explore other options for androids and use the same logic under "eggrun.py"
 
 This is a fork from https://github.com/kahopoon/Pokemon-Go-Controller , see the original project for more instructions.
 
 Clone/download this project. Change the location into your current address: 
 
-'''
+```
 location = geolocator.geocode("ENTER YOUR ADDRESS HERE! be specific")
-'''
+```
 
-Open xcode and start a blank project. You will have to find out 
+Open xcode and start a blank project. Include the 'pokemonLocation.gpx' file (Reference to the same file, don't copy another one). 
+
+Click run.
+
+You will have to find out your mouse location to click on the "change location" button at the bottom and the option of using your gpx file , we will be clicking on these two buttons constantly. Change the x,y in the clickAction function, you'll have to do some trial and error. 
 
 ```
-{"lng":"114.132530212402","lat":"22.3636264801025"}
-```
-This is what the app response via port 80 by http, so be sure to connect the iphone / ipad to your wifi network in order to gain access.
-
-## Get controller message
-```python
-import xml.etree.cElementTree as ET
-import urllib2
-import json
-
-lastLat = ""
-lastLng = ""
-
-def getPokemonLocation():
-	try:
-		response = urllib2.urlopen("http://your controller's ip/", timeout = 1)
-		return json.load(response)
-	except urllib2.URLError as e:
-		print e.reason
-
-def generateXML():
-	global lastLat, lastLng
-	geo = getPokemonLocation()
-	if geo != None:
-		if geo["lat"] != lastLat or geo["lng"] != lastLng:
-			lastLat = geo["lat"]
-			lastLng = geo["lng"]
-			gpx = ET.Element("gpx", version="1.1", creator="Xcode")
-			wpt = ET.SubElement(gpx, "wpt", lat=geo["lat"], lon=geo["lng"])
-			ET.SubElement(wpt, "name").text = "PokemonLocation"
-			ET.ElementTree(gpx).write("somewhere.gpx")
-			print "Location Updated!", "latitude:", geo["lat"], "longitude:" ,geo["lng"]
-
-def start():
-	while True:
-		generateXML()
-
-start()
-```
-Edit readAndChangeXML.py ,change the urlopen address to your controller's ip and write to somewhere your gpx file you want to put. Be sure you remember where the gpx you put :)
-
-![Alt text](Assets/receiver.png?raw=true "controller")  
-If running normal, at console you should see something like this when your drag the map or press the buttons on your game controller.
-
-## Simulate location to target device
-![Alt text](Assets/blankProject.png?raw=true "controller")  
-Create a blank single page app with your Xcode. Remember where you put the gpx file? Import the gpx file to your project without copying it, just referencing.
-
-![Alt text](Assets/xcodeSimulate.png?raw=true "controller")  
-Run this project on your iOS device that will actually run the Pokemon Go game, when running, at Xcode you will see a button to simulate location, so you see the option of your gpx file. Our next step is to constantly press this two buttons to simulate your location constantly and automatically.
-
-http://stackoverflow.com/questions/4230867/how-do-i-simulate-a-mouse-click-through-the-mac-terminal/26687223  
-By this, we can simulate a / some / lot of click(s) programmatically  
-```
-gcc -o autoClicker autoClicker.m -framework ApplicationServices -framework Foundation
-```
-compile the autoClicker.m with gcc at terminal.
-
-```python
-import os
-import urllib2
-import json
-import time
-
-def checkConnected():
-	try:
-		response = urllib2.urlopen("http://your controller's ip/", timeout = 1)
-		return json.load(response)
-	except urllib2.URLError as e:
-		print e.reason
-
 def clickAction():
-	os.system("./autoClicker -x 750 -y 400")
-	os.system("./autoClicker -x 750 -y 450")
+	os.system("./autoClicker -x 976 -y 880")
+	time.sleep(1)
+	os.system("./autoClicker -x 999 -y 600")
 	time.sleep(1)
 	print "clicking!!"
-
-def start():
-	while True:
-		if checkConnected() != None:
-			clickAction()
-
-start()
 ```
-So change the x,y location of your xcode's simulate button. LOL don't ask me your x,y, find it and test it by yourself, to have it easy when adjusting your x,y, you may set the sleep time longer among loops :) more tip: the loop will stop if you close the game controller as it looks for the active state on game controller, so please change the urlopen address here too with your game controller's ip.
+Open terminal and place it side by side with your xcode. cd to your folder and run the script using 
 
-## Overall flow
-1. you provide location data on game controller  
-2. receive it and generate gpx file constantly when you move  
-3. blank project referencing the gpx and simulate on your playing device
-4. auto click the xcode buttons constantly
+```
+python eggrun.py
+```
+
+The script will start and if your clicking is set up correctly, it should be uploading the location onto your phone. 
+
+Now the last step is to open Pokemon Go! Remember to close Pokemon go every time you start this script or you will be teleporting. (Even though it's a very small distance, you probably won't be banned for that)
+
+##Configuration
+Currently the script is set to move at the speed of 12km/h, which worked perfectly for me. you can play with it yourself to see if a faster speed would work.
 
 # Have Fun!
-![Alt text](Assets/finalResult.png?raw=true "final result") 
