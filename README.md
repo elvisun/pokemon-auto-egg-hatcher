@@ -6,7 +6,7 @@
 4. auto click the xcode buttons to constantly uploading the location
 
 ##What do I need?
-A mac and an iphone/ipad
+A mac and an iphone/ipad. An android version is still under development, any help would be appreciated.
 
 ##What can I do with this app?
 1. Hatch pokemon eggs
