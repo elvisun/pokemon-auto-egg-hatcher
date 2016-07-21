@@ -7,6 +7,7 @@ import random
 import time
 import math
 import os
+import sys
 
 from geopy.geocoders import Nominatim
 from geopy.distance import vincenty
@@ -70,10 +71,15 @@ def getPokemonLocation(currentLocation):
 	global destination, init, frame, playerLocation,lastLocation,frequency
 
 	if not init:
+		school = (-81.272434,43.008902) #37 kent drive
 		print('initializing:')
 		geolocator = Nominatim()
-		location = geolocator.geocode("ENTER YOUR ADDRESS HERE! be specific")
-		print('Current address: ',location.address)
+		inputAddress = raw_input("Enter your current address here --> ")
+		location = geolocator.geocode(inputAddress)
+		print('Is this your address?? (Y/n)')
+		confirm = raw_input(location.address + '     ')
+		if confirm == 'n':
+			sys.exit()
 		playerLocation = (location.longitude, location.latitude)
 		print ('playerLocation: ', playerLocation)
 		frame = calculateFrame(playerLocation)  #path we are walking - a square
