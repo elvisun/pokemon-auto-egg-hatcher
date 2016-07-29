@@ -120,9 +120,9 @@ def generateXML():
 
 
 def clickAction():
-	os.system("./autoClicker -x 976 -y 880")
+	os.system("./autoClicker -x 976 -y 880")	#976  880	<-- change this 
 	time.sleep(1)
-	os.system("./autoClicker -x 999 -y 600")
+	os.system("./autoClicker -x 999 -y 600")	#999  600	<--- and this
 	time.sleep(1)
 	print "clicking!!"
 
@@ -130,8 +130,8 @@ def clickAction():
 def main():
 
 	while True:
-		clickAction()
 		generateXML()
+		clickAction()
 		#time.sleep(1/frequency)
 
 if __name__ == "__main__":
